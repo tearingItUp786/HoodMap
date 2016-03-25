@@ -6,7 +6,7 @@ var hoodCoordinates = {
 function loadScript(callback) {
   var script = document.createElement("script");
   script.type = "text/javascript";
-  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGpIQbpJCEJPolgUzC8Qnw9vhLfJl6HM8&signed_in=true&libraries=places";
+  script.src = "https://maps.googleapis.com/maps/api/js?key=MYKEY&signed_in=true&libraries=places";
   document.body.appendChild(script);
   script.onload = function() {
     var scriptInfoBox = document.createElement("script");
