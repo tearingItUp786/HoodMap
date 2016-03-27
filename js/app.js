@@ -6,7 +6,7 @@ var hoodCoordinates = {
 function loadScript(callback) {
   var script = document.createElement("script");
   script.type = "text/javascript";
-  script.src = "https://maps.googleapis.com/maps/api/js?key=MYKEY&signed_in=true&libraries=places";
+  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGpIQbpJCEJPolgUzC8Qnw9vhLfJl6HM8&signed_in=true&libraries=places";
   document.body.appendChild(script);
   script.onload = function() {
     var scriptInfoBox = document.createElement("script");
@@ -17,17 +17,12 @@ function loadScript(callback) {
   };
 }
 
-//need to set info windows now for the google maps and configure some stuff. Good job
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     center: hoodCoordinates,
     disableDefaultUI: true
   });
-
-  // var infowindow = new google.maps.InfoWindow({
-  //   maxWidth: 300,
-  // });
 
   var boxOptions = {
     disableAutoPan: false,
@@ -53,15 +48,24 @@ function initMap() {
     console.log("In timeout");
 
     for (var i = 0; i < myListView.placeList().length; i++) {
+      var thePlace = myListView.placeList()[i];
 
-      myListView.placeList()[i].marker.setMap(map);
+      var marker = new google.maps.Marker({
+        position: {
+          lat: thePlace.latitude(),
+          lng: thePlace.longitude()
+        }
+      });
 
-      google.maps.event.addListener(myListView.placeList()[i].marker, 'click', (function(iCopy) {
+      thePlace.marker = marker;
+      console.log(marker);
+      marker.setMap(map);
+
+      google.maps.event.addListener(marker, 'click', (function(iCopy) {
         return function() {
-          var thePlace = myListView.placeList()[iCopy];
           myListView.currentPlace(thePlace);
+          // map.setCenter(thePlace.marker.getPosition());
           map.setCenter(thePlace.marker.getPosition());
-
           var boxText = document.createElement("div");
           boxText.id = 'ib-container';
           boxText.innerHTML =
@@ -69,13 +73,6 @@ function initMap() {
             '<div class="ib-content">' + '<h3><a href="' + thePlace.mobile_url() + '">Yelp It!</a></h3>' + '<p>' + thePlace.snippet_text() + '</p><img src="' + thePlace.imageURL() + '"/></div>';
           infoBox.setContent(boxText);
           infoBox.open(map, this);
-          // infowindow.setContent(
-          //   '<h2>' + thePlace.name() + '</h2>' +
-          //   '<p>' + thePlace.snippet_text() + '</p>' +
-          //   '<div><img src="' + thePlace.imageURL() + '"/></div>'
-          // );
-          // infowindow.open(map, this);
-          console.log(myListView.currentPlace());
         };
       })(i));
     }
@@ -101,13 +98,6 @@ var Place = function(data) {
   this.mobile_url = ko.observable(data.mobile_url);
   this.display_phone = ko.observable(data.display_phone);
   this.active = ko.observable(false);
-  this.marker = new google.maps.Marker({
-    position: {
-      lat: self.latitude(),
-      lng: self.longitude()
-    },
-  });
-
 };
 
 var ListviewModel = function() {
