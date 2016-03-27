@@ -45,7 +45,6 @@ function initMap() {
 
   var infoBox = new InfoBox(boxOptions);
   setTimeout(function() {
-    console.log("In timeout");
 
     for (var i = 0; i < myListView.placeList().length; i++) {
       var thePlace = myListView.placeList()[i];
@@ -58,13 +57,12 @@ function initMap() {
       });
 
       thePlace.marker = marker;
-      console.log(marker);
       marker.setMap(map);
 
-      google.maps.event.addListener(marker, 'click', (function(iCopy) {
+      google.maps.event.addListener(thePlace.marker, 'click', (function(iCopy) {
         return function() {
+          thePlace = myListView.placeList()[iCopy];
           myListView.currentPlace(thePlace);
-          // map.setCenter(thePlace.marker.getPosition());
           map.setCenter(thePlace.marker.getPosition());
           var boxText = document.createElement("div");
           boxText.id = 'ib-container';
@@ -98,6 +96,13 @@ var Place = function(data) {
   this.mobile_url = ko.observable(data.mobile_url);
   this.display_phone = ko.observable(data.display_phone);
   this.active = ko.observable(false);
+  // this.marker = new google.maps.Marker({
+  //   position: {
+  //     lat: self.latitude(),
+  //     lng: self.longitude()
+  //   },
+  // });
+
 };
 
 var ListviewModel = function() {
@@ -120,7 +125,6 @@ var ListviewModel = function() {
 
   self.styling = function(place) {
     if (place === self.currentPlace()) {
-      console.log('active');
       return 'active';
     } else {
       return '';
@@ -129,7 +133,6 @@ var ListviewModel = function() {
 
   self.toggle = function(place) {
     if (place === self.currentPlace()) {
-      console.log("Active place");
       self.currentPlace().active(!self.currentPlace().active());
     }
   };
@@ -148,8 +151,6 @@ function retrieveYelpData(aFunc) {
     },
     dataType: "json",
     success: function(data) {
-      console.log("Success");
-      console.log(data);
       aFunc(data.businesses);
 
     },
