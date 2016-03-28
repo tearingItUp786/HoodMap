@@ -3,7 +3,7 @@ $primary-window-color: #F5F5F5;
 $window-hover-color: #CFD8DC;
 $window-active-color: #B0BEC5;
 $button-size: 45px;
-$max-navigation-height: 500px;
+$max-navigation-height: 650px;
 $max-navigation-width: 300px;
 body,
 html {
@@ -39,13 +39,17 @@ html {
     font-size: $button-size;
     margin: 5px;
   }
+  .fa:hover {
+    cursor: pointer;
+  }
   $c: 95%;
   $d: 45px;
+  $e: 15%;
   ul {
     margin: 5px;
-    height: -webkit-calc(#{$c} - #{$d});
-    height: -moz-calc(#{$c} - #{$d});
-    height: calc(#{$c} - #{$d});
+    height: -webkit-calc(#{$c} - #{$e} - #{$d});
+    height: -moz-calc(#{$c} - #{$e} - #{$d});
+    height: calc(#{$c} - #{$e} - #{$d});
     width: 95%;
     background-color: $primary-window-color;
     list-style-type: none;
@@ -94,6 +98,11 @@ html {
     transform: translate(-300px, 0);
     transition: transform 0.3s ease;
   }
+  form {
+    -webkit-transform: translate(-300px, 0);
+    transform: translate(-300px, 0);
+    transition: transform 0.3s ease;
+  }
 }
 .open {
   ul {
@@ -101,17 +110,47 @@ html {
     transform: translate(0, 0);
     transition: transform 0.5s ease;
   }
+  form {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    transition: transform 0.5s ease;
+    width: 95%;
+    margin-bottom: 10px;
+    background: $primary-window-color;
+    padding: 5px 0;
+    max-height: 280px;
+    box-shadow: 10px 10px 10px #9C9C9C;
+    border: 1px solid #757575;
+    label {
+      margin-left: 10px;
+      width: 100px;
+      display: inline-block;
+    }
+    input[type="text"] {
+      width: 155px;
+    }
+    input[type="submit"] {
+      margin-top: 10px;
+      margin-left: 10px;
+    }
+  }
 }
 #tiny {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
 }
 $breakpoint-tablet: 768px;
 @media (max-width: 600px) {
   .navigation {
-    width: 155px;
+    width: 130px;
     ul {
       font-size: 14px;
+    }
+    form {
+      height: 20%;
+      input[type="text"] {
+        width: 100px;
+      }
     }
     .nav-item {
       padding: 15px;

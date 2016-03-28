@@ -1,7 +1,10 @@
 var hoodCoordinates = {
-  lat: 49.1643890,
-  lng: -122.8996200
+  lat: 49.246292,
+  lng: -123.116226
 };
+var geocoder;
+var map;
+var infoBox;
 
 function loadScript(callback) {
   var script = document.createElement("script");
@@ -18,11 +21,13 @@ function loadScript(callback) {
 }
 
 function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 15,
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
     center: hoodCoordinates,
     disableDefaultUI: true
   });
+
+  geocoder = new google.maps.Geocoder();
 
   var boxOptions = {
     disableAutoPan: false,
@@ -43,39 +48,8 @@ function initMap() {
     enableEventPropagation: false,
   };
 
-  var infoBox = new InfoBox(boxOptions);
-  setTimeout(function() {
-
-    for (var i = 0; i < myListView.placeList().length; i++) {
-      var thePlace = myListView.placeList()[i];
-
-      var marker = new google.maps.Marker({
-        position: {
-          lat: thePlace.latitude(),
-          lng: thePlace.longitude()
-        }
-      });
-
-      thePlace.marker = marker;
-      marker.setMap(map);
-
-      google.maps.event.addListener(thePlace.marker, 'click', (function(iCopy) {
-        return function() {
-          thePlace = myListView.placeList()[iCopy];
-          myListView.currentPlace(thePlace);
-          map.setCenter(thePlace.marker.getPosition());
-          var boxText = document.createElement("div");
-          boxText.id = 'ib-container';
-          boxText.innerHTML =
-            '<div class="header"><h1>' + thePlace.name() + '</h1>' + '<h2>' + thePlace.display_phone() + '</h2><h3 class="sub-title">' + thePlace.location() + '</h3>' + '</div>' +
-            '<div class="ib-content">' + '<h3><a href="' + thePlace.mobile_url() + '">Yelp It!</a></h3>' + '<p>' + thePlace.snippet_text() + '</p><img src="' + thePlace.imageURL() + '"/></div>';
-          infoBox.setContent(boxText);
-          infoBox.open(map, this);
-        };
-      })(i));
-    }
-  }, 1000);
-
+  infoBox = new InfoBox(boxOptions);
+  setTimeout(drawMarkers, 1500);
   google.maps.event.addListener(infoBox, 'closeclick', function() {
     myListView.currentPlace(null);
   });
@@ -83,6 +57,37 @@ function initMap() {
   google.maps.event.addListener(map, 'click', function(e) {
     contextmenu: true
   });
+}
+
+function drawMarkers() {
+  for (var i = 0; i < myListView.placeList().length; i++) {
+    var thePlace = myListView.placeList()[i];
+    console.log("in for loop");
+    var marker = new google.maps.Marker({
+      position: {
+        lat: thePlace.latitude(),
+        lng: thePlace.longitude()
+      }
+    });
+
+    thePlace.marker = marker;
+    thePlace.marker.setMap(map);
+
+    google.maps.event.addListener(thePlace.marker, 'click', (function(iCopy) {
+      return function() {
+        thePlace = myListView.placeList()[iCopy];
+        myListView.currentPlace(thePlace);
+        map.setCenter(thePlace.marker.getPosition());
+        var boxText = document.createElement("div");
+        boxText.id = 'ib-container';
+        boxText.innerHTML =
+          '<div class="header"><h1>' + thePlace.name() + '</h1>' + '<h2>' + thePlace.display_phone() + '</h2><h3 class="sub-title">' + thePlace.location() + '</h3>' + '</div>' +
+          '<div class="ib-content">' + '<h3><a href="' + thePlace.mobile_url() + '">Yelp It!</a></h3>' + '<p>' + thePlace.snippet_text() + '</p><img src="' + thePlace.imageURL() + '"/></div>';
+        infoBox.setContent(boxText);
+        infoBox.open(map, this);
+      };
+    })(i));
+  }
 }
 
 var Place = function(data) {
@@ -95,13 +100,8 @@ var Place = function(data) {
   this.snippet_text = ko.observable(data.snippet_text);
   this.mobile_url = ko.observable(data.mobile_url);
   this.display_phone = ko.observable(data.display_phone);
+  this.rating = ko.observable(data.rating);
   this.active = ko.observable(false);
-  // this.marker = new google.maps.Marker({
-  //   position: {
-  //     lat: self.latitude(),
-  //     lng: self.longitude()
-  //   },
-  // });
 
 };
 
@@ -110,8 +110,9 @@ var ListviewModel = function() {
   self.placeList = ko.observableArray([]);
   self.currentPlace = ko.observable();
 
-  (function assignData(callback) {
-    retrieveYelpData(function(data) {
+  (function assignData() {
+    retrieveYelpData("", "", function(data) {
+      console.log(data);
       data.forEach(function(place) {
         var aPlace = new Place(place);
         self.placeList.push(aPlace);
@@ -137,17 +138,16 @@ var ListviewModel = function() {
     }
   };
 
-
 };
 
-function retrieveYelpData(aFunc) {
+function retrieveYelpData(uterm, ulocation, aFunc) {
   $.ajax({
     url: "php/sample.php",
     async: true,
     type: "POST",
     data: {
-      term: "restaurant",
-      location: "v4c 5z8"
+      term: uterm,
+      location: ulocation
     },
     dataType: "json",
     success: function(data) {
@@ -161,6 +161,51 @@ function retrieveYelpData(aFunc) {
   });
 }
 
+function codeAddress(callback) {
+  console.log("in code");
+  var address = document.getElementById("location").value;
+  geocoder.geocode({
+    'address': address
+  }, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+      callback();
+    } else {
+      alert("Geocode was not successful for the following reason: " + status);
+    }
+  });
+}
+
+
+function setMapOnAll(map) {
+  for (var i = 0; i < myListView.placeList().length; i++) {
+    myListView.placeList()[i].marker.setMap(map);
+  }
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setMapOnAll(null);
+}
+
+function parseForm() {
+
+  var loc = document.getElementById('location').value;
+  var term = document.getElementById('yterm').value;
+  console.log(loc);
+
+  retrieveYelpData(term, loc, function(data) {
+    console.log(data);
+    clearMarkers();
+    myListView.placeList.removeAll();
+    data.forEach(function(place) {
+      var aPlace = new Place(place);
+      myListView.placeList.push(aPlace);
+    });
+    codeAddress(drawMarkers);
+  });
+
+}
 loadScript(initMap);
 myListView = new ListviewModel();
 ko.applyBindings(myListView);

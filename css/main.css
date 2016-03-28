@@ -25,17 +25,19 @@ html {
   max-width: 300px;
   font-variant: small-caps;
   font-size: 18px;
-  max-height: 500px;
+  max-height: 650px;
   overflow: hidden; }
   .navigation .fa {
     color: #455A64;
     font-size: 45px;
     margin: 5px; }
+  .navigation .fa:hover {
+    cursor: pointer; }
   .navigation ul {
     margin: 5px;
-    height: -webkit-calc(95% - 45px);
-    height: -moz-calc(95% - 45px);
-    height: calc(95% - 45px);
+    height: -webkit-calc(95% - 15% - 45px);
+    height: -moz-calc(95% - 15% - 45px);
+    height: calc(95% - 15% - 45px);
     width: 95%;
     background-color: #F5F5F5;
     list-style-type: none;
@@ -72,21 +74,49 @@ html {
   -webkit-transform: translate(-300px, 0);
   transform: translate(-300px, 0);
   transition: transform 0.3s ease; }
+.close form {
+  -webkit-transform: translate(-300px, 0);
+  transform: translate(-300px, 0);
+  transition: transform 0.3s ease; }
 
 .open ul {
   -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
   transition: transform 0.5s ease; }
+.open form {
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+  transition: transform 0.5s ease;
+  width: 95%;
+  margin-bottom: 10px;
+  background: #F5F5F5;
+  padding: 5px 0;
+  max-height: 280px;
+  box-shadow: 10px 10px 10px #9C9C9C;
+  border: 1px solid #757575; }
+  .open form label {
+    margin-left: 10px;
+    width: 100px;
+    display: inline-block; }
+  .open form input[type="text"] {
+    width: 155px; }
+  .open form input[type="submit"] {
+    margin-top: 10px;
+    margin-left: 10px; }
 
 #tiny {
-  width: 60px;
-  height: 60px; }
+  width: 50px;
+  height: 50px; }
 
 @media (max-width: 600px) {
   .navigation {
-    width: 155px; }
+    width: 130px; }
     .navigation ul {
       font-size: 14px; }
+    .navigation form {
+      height: 20%; }
+      .navigation form input[type="text"] {
+        width: 100px; }
     .navigation .nav-item {
       padding: 15px; } }
 #ib-container {

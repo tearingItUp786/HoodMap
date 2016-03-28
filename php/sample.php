@@ -30,8 +30,8 @@ $TOKEN = '';
 $TOKEN_SECRET ='';
 
 $API_HOST = 'api.yelp.com';
-$DEFAULT_TERM = "diner";
-$DEFAULT_LOCATION = 'San Francisco, CA';
+$DEFAULT_TERM = "indian";
+$DEFAULT_LOCATION = 'Vancouver, Canada';
 $DEFAULT_LOCATION = str_replace(" ", "-", $DEFAULT_LOCATION);
 $DEALS = true;
 $RADIUS = 2000;
