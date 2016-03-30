@@ -114,7 +114,8 @@ html {
     .navigation ul {
       font-size: 14px; }
     .navigation form {
-      height: 20%; }
+      height: 20%;
+      min-height: 130px; }
       .navigation form input[type="text"] {
         width: 100px; }
     .navigation .nav-item {

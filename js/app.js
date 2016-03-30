@@ -49,7 +49,7 @@ function initMap() {
   };
 
   infoBox = new InfoBox(boxOptions);
-  setTimeout(drawMarkers, 1500);
+  drawMarkers();
   google.maps.event.addListener(infoBox, 'closeclick', function() {
     myListView.currentPlace(null);
   });
@@ -74,7 +74,8 @@ function drawMarkers() {
     thePlace.marker.setMap(map);
 
     google.maps.event.addListener(thePlace.marker, 'click', (function(iCopy) {
-      return function() {
+      return function(e) {
+
         thePlace = myListView.placeList()[iCopy];
         myListView.currentPlace(thePlace);
         map.setCenter(thePlace.marker.getPosition());
@@ -85,6 +86,7 @@ function drawMarkers() {
           '<div class="ib-content">' + '<h3><a href="' + thePlace.mobile_url() + '">Yelp It!</a></h3>' + '<p>' + thePlace.snippet_text() + '</p><img src="' + thePlace.imageURL() + '"/></div>';
         infoBox.setContent(boxText);
         infoBox.open(map, this);
+        myListView.scroll();
       };
     })(i));
   }
@@ -117,6 +119,7 @@ var ListviewModel = function() {
         var aPlace = new Place(place);
         self.placeList.push(aPlace);
       });
+      loadScript(initMap);
     });
   })();
 
@@ -138,6 +141,14 @@ var ListviewModel = function() {
     }
   };
 
+  self.scroll = function() {
+    var container = $('#locations'),
+      scrollTo = $('li.nav-item.active');
+    console.log(scrollTo);
+    container.scrollTop(
+      scrollTo.offset().top - container.offset().top + container.scrollTop()
+    );
+  };
 };
 
 function retrieveYelpData(uterm, ulocation, aFunc) {
@@ -185,6 +196,7 @@ function setMapOnAll(map) {
 
 // Removes the markers from the map, but keeps them in the array.
 function clearMarkers() {
+  infoBox.close();
   setMapOnAll(null);
 }
 
@@ -206,6 +218,6 @@ function parseForm() {
   });
 
 }
-loadScript(initMap);
+// loadScript(initMap);
 myListView = new ListviewModel();
 ko.applyBindings(myListView);
