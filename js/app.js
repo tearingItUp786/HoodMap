@@ -162,7 +162,7 @@ function retrieveYelpData(uterm, ulocation, aFunc) {
   $.ajax({
     url: "php/main.min.php",
     async: true,
-    type: "GET",
+    type: "POST",
     data: {
       term: uterm,
       location: ulocation
