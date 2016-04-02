@@ -37,8 +37,9 @@ function initMap() {
     boxStyle: {
       background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
       opacity: 0.75,
-      width: "400px",
-      padding: "10px"
+      width: "100%",
+      maxWidth: "425px",
+      padding: "6px"
     },
     closeBoxMargin: "8px 2px 2px 2px",
     closeBoxURL: "../images/square.png",
@@ -57,17 +58,20 @@ function initMap() {
   google.maps.event.addListener(map, 'click', function(e) {
     contextmenu: true
   });
+
 }
 
 function drawMarkers() {
   for (var i = 0; i < myListView.placeList().length; i++) {
     var thePlace = myListView.placeList()[i];
-    console.log("in for loop");
+
     var marker = new google.maps.Marker({
+      animation: google.maps.Animation.DROP,
       position: {
         lat: thePlace.latitude(),
         lng: thePlace.longitude()
-      }
+      },
+      icon: "../images/location.png"
     });
 
     thePlace.marker = marker;
@@ -104,6 +108,9 @@ var Place = function(data) {
   this.display_phone = ko.observable(data.display_phone);
   this.rating = ko.observable(data.rating);
   this.active = ko.observable(false);
+  this.fullName = ko.computed(function() {
+    return this.name() + " <br/><span>Yelp Rating: " + this.rating() + "</span>";
+  }, this);
 
 };
 
@@ -114,7 +121,7 @@ var ListviewModel = function() {
 
   (function assignData() {
     retrieveYelpData("", "", function(data) {
-      console.log(data);
+
       data.forEach(function(place) {
         var aPlace = new Place(place);
         self.placeList.push(aPlace);
@@ -144,7 +151,7 @@ var ListviewModel = function() {
   self.scroll = function() {
     var container = $('#locations'),
       scrollTo = $('li.nav-item.active');
-    console.log(scrollTo);
+
     container.scrollTop(
       scrollTo.offset().top - container.offset().top + container.scrollTop()
     );
@@ -153,9 +160,9 @@ var ListviewModel = function() {
 
 function retrieveYelpData(uterm, ulocation, aFunc) {
   $.ajax({
-    url: "php/sample.php",
+    url: "php/main.min.php",
     async: true,
-    type: "POST",
+    type: "GET",
     data: {
       term: uterm,
       location: ulocation
@@ -173,7 +180,7 @@ function retrieveYelpData(uterm, ulocation, aFunc) {
 }
 
 function codeAddress(callback) {
-  console.log("in code");
+
   var address = document.getElementById("location").value;
   geocoder.geocode({
     'address': address
@@ -204,10 +211,9 @@ function parseForm() {
 
   var loc = document.getElementById('location').value;
   var term = document.getElementById('yterm').value;
-  console.log(loc);
 
   retrieveYelpData(term, loc, function(data) {
-    console.log(data);
+
     clearMarkers();
     myListView.placeList.removeAll();
     data.forEach(function(place) {
@@ -218,6 +224,5 @@ function parseForm() {
   });
 
 }
-// loadScript(initMap);
 myListView = new ListviewModel();
 ko.applyBindings(myListView);
