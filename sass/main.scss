@@ -30,7 +30,6 @@ html {
   z-index: 1;
   padding: 0;
   max-width: $max-navigation-width;
-  font-variant: small-caps;
   font-size: 18px;
   max-height: $max-navigation-height;
   -webkit-overflow-scrolling: touch;
@@ -88,6 +87,11 @@ html {
     border-bottom-width: thin;
     border-bottom-style: solid;
     border-bottom-color: #DEDEDE;
+
+    img{
+      padding-top: 2px;
+      width: 60%;
+    }
   }
   .nav-item:hover {
     background-color: $window-hover-color;
@@ -166,6 +170,7 @@ $breakpoint-tablet: 768px;
     max-height: 350px;
     min-height: 350px;
     ul {
+      display: none;
       font-size: 14px;
       height: calc(350px - 145px - 60px);
     }

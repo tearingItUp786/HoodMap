@@ -87,7 +87,8 @@ function drawMarkers() {
         boxText.id = 'ib-container';
         boxText.innerHTML =
           '<div class="header"><h1>' + thePlace.name() + '</h1>' + '<h2>' + thePlace.display_phone() + '</h2><h3 class="sub-title">' + thePlace.location() + '</h3>' + '</div>' +
-          '<div class="ib-content">' + '<h3><a href="' + thePlace.mobile_url() + '">Yelp It!</a></h3>' + '<p>' + thePlace.snippet_text() + '</p><img src="' + thePlace.imageURL() + '"/></div>';
+          '<div class="ib-content">' + '<h3><a href="' + thePlace.mobile_url() + '">Yelp Rating: ' + thePlace.rating() +
+          '</a></h3>' + '<p>' + thePlace.snippet_text() + '</p><img src="' + thePlace.imageURL() + '"/></div>';
         infoBox.setContent(boxText);
         infoBox.open(map, this);
         myListView.scroll();
@@ -108,8 +109,9 @@ var Place = function(data) {
   this.display_phone = ko.observable(data.display_phone);
   this.rating = ko.observable(data.rating);
   this.active = ko.observable(false);
+  this.rating_img_url_large = ko.observable(data.rating_img_url_large);
   this.fullName = ko.computed(function() {
-    return this.name() + " <br/><span>Yelp Rating: " + this.rating() + "</span>";
+    return this.name() + '<br/><img src="' + this.rating_img_url_large() + '"/>';
   }, this);
 
 };
@@ -120,7 +122,7 @@ var ListviewModel = function() {
   self.currentPlace = ko.observable();
 
   (function assignData() {
-    retrieveYelpData("", "", function(data) {
+    retrieveYelpData("", "", "php/sample.php", function(data) {
 
       data.forEach(function(place) {
         var aPlace = new Place(place);
@@ -158,9 +160,9 @@ var ListviewModel = function() {
   };
 };
 
-function retrieveYelpData(uterm, ulocation, aFunc) {
+function retrieveYelpData(uterm, ulocation, script, aFunc) {
   $.ajax({
-    url: "php/main.min.php",
+    url: script,
     async: true,
     type: "POST",
     data: {
@@ -170,7 +172,7 @@ function retrieveYelpData(uterm, ulocation, aFunc) {
     dataType: "json",
     success: function(data) {
       aFunc(data.businesses);
-
+      console.log(data);
     },
     error: function(jqXHR, textStatus, errorThrown) {
       console.log(textStatus, errorThrown);
@@ -212,7 +214,7 @@ function parseForm() {
   var loc = document.getElementById('location').value;
   var term = document.getElementById('yterm').value;
 
-  retrieveYelpData(term, loc, function(data) {
+  retrieveYelpData(term, loc,"php/main.min.php", function(data) {
 
     clearMarkers();
     myListView.placeList.removeAll();
