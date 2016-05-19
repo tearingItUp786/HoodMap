@@ -1,0 +1,26 @@
+{
+  "name": "hood",
+  "version": "2.0.0",
+  "description": "Redone design",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tearingItUp786/HoodMap.git"
+  },
+  "author": "Taran Bains",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tearingItUp786/HoodMap/issues"
+  },
+  "homepage": "https://github.com/tearingItUp786/HoodMap#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-browser-sync": "^2.2.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^1.2.0"
+  }
+}

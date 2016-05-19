@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Yelp API v2.0 code sample.
  *
@@ -24,10 +23,10 @@ require_once('lib/OAuth.php');
 // Set your OAuth credentials here
 // These credentials can be obtained from the 'Manage API Access' page in the
 // developers documentation (http://www.yelp.com/developers)
-$CONSUMER_KEY    = '';
-$CONSUMER_SECRET = '';
-$TOKEN           = '';
-$TOKEN_SECRET    = '';
+$CONSUMER_KEY    = 'etEGHhav9psQyyA29O6DJA';
+$CONSUMER_SECRET = 'RhcStxf8mTeS-5aSdYvKamWxbB4';
+$TOKEN           = 'yo5phN4iuPUV4tI8fzAcjTK3Wej1skzZ';
+$TOKEN_SECRET    = 'jTRCy3CkKqVW5C2jfiYwLoRtB7w';
 
 $API_HOST         = 'api.yelp.com';
 $DEFAULT_TERM     = "indian";
