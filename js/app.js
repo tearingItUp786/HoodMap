@@ -35,7 +35,6 @@ function initMap() {
         pixelOffset: new google.maps.Size(-140, 0),
         zIndex: null,
         boxStyle: {
-            background: "white",
             opacity: 0.75,
             width: "100%",
             maxWidth: "425px",
