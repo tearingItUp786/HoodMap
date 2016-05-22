@@ -67,7 +67,7 @@ function drawMarkers() {
                 lat: thePlace.latitude(),
                 lng: thePlace.longitude()
             },
-            icon: "../images/location.png"
+            // icon: "../images/location.png"
         });
 
         thePlace.marker = marker;
@@ -107,7 +107,7 @@ var Place = function(data) {
     this.active = ko.observable(false);
     this.rating_img_url_large = ko.observable(data.rating_img_url_large);
     this.fullName = ko.computed(function() {
-        return this.name() + '<br/><img src="' + this.rating_img_url_large() + '"/>';
+        return this.name();
     }, this);
 
 };
@@ -150,9 +150,9 @@ var ListviewModel = function() {
         var container = $('#locations'),
             scrollTo = $('li.nav-item.active');
 
-        container.scrollTop(
-            scrollTo.offset().top - container.offset().top + container.scrollTop()
-        );
+        // container.scrollTop(
+        //     scrollTo.offset().top - container.offset().top + container.scrollTop()
+        // );
     };
 };
 
@@ -209,7 +209,8 @@ function parseForm() {
 
     var loc = document.getElementById('location').value;
     var term = document.getElementById('yterm').value;
-
+    console.log(term);
+    console.log(loc);
     retrieveYelpData(term, loc, "../php/sample.php", function(data) {
 
         clearMarkers();
