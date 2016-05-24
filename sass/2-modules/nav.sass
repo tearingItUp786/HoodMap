@@ -1,36 +1,46 @@
 .navigation
   +position(absolute, 0 0 0 0)
   z-index: 1
-  +size(300px 100%)
+  +size(250px 100%)
   background: $black
 
   .logo-wrapper
-    height: 200px
+    height: 150px
     color: $yellow
+    box-sizing: border-box
+    padding: 30px 20px 20px 20px
     +display(flex)
     +flex-wrap(wrap)
     +flex-direction(column)
     +align-items(center)
     +justify-content(center)
 
-    .logo
+    .logo-items
       margin: 0
       padding: 0
-      width: 100%
-      height: 50px
-      text-align: center
+      +size(100% 50px)
       font-weight: 400
+      height: auto
+      &:hover
+        background:
+          color: black
+
+    .logo
+      @extend .logo-items
+      +hide-text
+      +background(url("../images/logo.svg") left no-repeat)
 
     .project-name
-      @extend .logo
+      @extend .logo-items
       letter-spacing: 1px
+      font-size: +em(20)
 
   ul
     list-style-type: none
     padding: 0
     margin: 0
     overflow: auto
-    +size(100% calc(100% - 200px))
+    +size(100% calc(100% - 150px))
 
     .active
       border-left: 3px solid $yellow
@@ -39,7 +49,8 @@
     li
       color: $navText
       font-size: +em(16)
-      padding: 20px
+      font-weight: 500
+      padding: 30px 20px 30px 20px
       +border-color($borderColor null $borderColor)
       +border-width(1px 0 1px 0)
       +border-style(solid null solid null)

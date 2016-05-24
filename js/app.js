@@ -21,11 +21,61 @@ function loadScript(callback) {
 }
 
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
+
+    var styles = [{
+        stylers: [{
+            saturation: -80
+        }, {
+            lightness: -30
+        }, {
+            gamma: 1.0
+        }]
+    }, {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [{
+            hue: "#f5ae00"
+        }, {
+            saturation: 40
+        }, {
+            lightness: 10
+        }, {
+            visibility: "simplified"
+        }]
+    }, {
+        featureType: "road",
+        elementType: "labels",
+        stylers: [{
+            visibility: "on"
+        }, {
+            color: "pink"
+        }]
+    }, {
+        featureType: "landscape",
+        elementType: "all",
+        stylers: [{
+            saturation: 0
+        }]
+    }];
+
+    var styledMap = new google.maps.StyledMapType(styles, {
+        name: "Styled Map"
+    });
+
+    var mapOptions = {
         zoom: 10,
         center: hoodCoordinates,
-        disableDefaultUI: true
-    });
+        disableDefaultUI: true,
+        mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+        }
+    }
+
+    map = new google.maps.Map(document.getElementById('map'),
+        mapOptions);
+
+    map.mapTypes.set('map_style', styledMap);
+    map.setMapTypeId('map_style');
 
     geocoder = new google.maps.Geocoder();
 
@@ -36,7 +86,7 @@ function initMap() {
         zIndex: null,
         boxStyle: {
             width: "100%",
-            maxWidth: "350px",
+            maxWidth: "360px",
             padding: "6px"
         },
         closeBoxMargin: "8px 2px 2px 2px",
@@ -95,7 +145,7 @@ function drawMarkers() {
 var Place = function(data) {
     var self = this;
     this.name = ko.observable(data.name);
-    this.location = ko.observable(data.location.display_address[0] + " " + data.location.display_address[1] + " " + data.location.city + ", "+ data.location.state_code);
+    this.location = ko.observable(data.location.display_address[0] + " " + data.location.display_address[1] + " " + data.location.city + ", " + data.location.state_code);
     this.latitude = ko.observable(data.location.coordinate.latitude);
     this.longitude = ko.observable(data.location.coordinate.longitude);
     this.imageURL = ko.observable(data.image_url);
@@ -147,11 +197,11 @@ var ListviewModel = function() {
 
     self.scroll = function() {
         var container = $('#locations'),
-            scrollTo = $('li.nav-item.active');
+            scrollTo = $('.active');
 
-        // container.scrollTop(
-        //     scrollTo.offset().top - container.offset().top + container.scrollTop()
-        // );
+        $('#locations').stop().animate({
+            scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+        }, 500)
     };
 };
 

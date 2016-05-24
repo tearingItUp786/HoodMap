@@ -365,6 +365,22 @@ textarea {
   font: inherit;
   /* 2 */ }
 
+::-webkit-scrollbar {
+  width: 0.5em;
+  height: 0.5em; }
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0.5em;
+  background: #f5ae00; }
+
+::-webkit-scrollbar-track {
+  border-radius: 0.5em;
+  background: white; }
+
+body {
+  scrollbar-face-color: #f5ae00;
+  scrollbar-track-color: white; }
+
 html, body {
   height: 100%;
   width: 100%;
@@ -379,8 +395,7 @@ html, body {
   top: 0;
   right: 0;
   bottom: 0;
-  left: 0;
-  opacity: 0.8; }
+  left: 0; }
 
 .navigation {
   position: absolute;
@@ -390,11 +405,13 @@ html, body {
   left: 0;
   z-index: 1;
   height: 100%;
-  width: 300px;
+  width: 250px;
   background: #0d0d0d; }
   .navigation .logo-wrapper {
-    height: 200px;
+    height: 150px;
     color: #f5ae00;
+    box-sizing: border-box;
+    padding: 30px 20px 20px 20px;
     display: -webkit-box;
     display: -moz-box;
     display: box;
@@ -437,21 +454,30 @@ html, body {
     -o-justify-content: center;
     justify-content: center;
     -ms-flex-pack: center; }
-    .navigation .logo-wrapper .logo, .navigation .logo-wrapper .project-name {
+    .navigation .logo-wrapper .logo-items, .navigation .logo-wrapper .logo, .navigation .logo-wrapper .project-name {
       margin: 0;
       padding: 0;
-      width: 100%;
       height: 50px;
-      text-align: center;
-      font-weight: 400; }
+      width: 100%;
+      font-weight: 400;
+      height: auto; }
+      .navigation .logo-wrapper .logo-items:hover, .navigation .logo-wrapper .logo:hover, .navigation .logo-wrapper .project-name:hover {
+        background-color: black; }
+    .navigation .logo-wrapper .logo {
+      overflow: hidden;
+      text-indent: 101%;
+      white-space: nowrap;
+      background: url("../images/logo.svg") left no-repeat;
+      background: url("../images/logo.svg") left no-repeat; }
     .navigation .logo-wrapper .project-name {
-      letter-spacing: 1px; }
+      letter-spacing: 1px;
+      font-size: 1.25em; }
   .navigation ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
     overflow: auto;
-    height: calc(100% - 200px);
+    height: calc(100% - 150px);
     width: 100%; }
     .navigation ul .active, .navigation ul li:hover {
       border-left: 3px solid #f5ae00;
@@ -459,7 +485,8 @@ html, body {
     .navigation ul li {
       color: #a0a0a0;
       font-size: 1em;
-      padding: 20px;
+      font-weight: 500;
+      padding: 30px 20px 30px 20px;
       border-top-color: #212121;
       border-bottom-color: #212121;
       border-width: 1px 0;
@@ -579,7 +606,8 @@ html, body {
       width: 55%;
       margin: 0 5% 0 0;
       font-size: 1.125em;
-      font-weight: 400; }
+      font-weight: 400;
+      line-height: 1.4em; }
     .ib-container .ib-content img {
       height: 40%;
       width: 40%; }
