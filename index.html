@@ -14,6 +14,10 @@
 <body>
     <div class="wrapper">
         <nav class="navigation">
+            <div class="logo-wrapper">
+              <h1 class="logo"> &#12296; ? tsb ? 	&#12297; </h1>
+              <h2 class="project-name">MAP APPLICATION</h2>
+            </div>
             <ul id="locations" data-bind="foreach: placeList">
                 <li data-bind="html: fullName, css: $root.styling($data),click: function(){ $root.displayInfo($data); $root.toggle($data); $root.scroll();}">
                 </li>
@@ -21,13 +25,11 @@
         </nav>
         <div class="search">
             <form onsubmit="event.preventDefault(); parseForm();">
-                <label for="location">Location</label>
-                <input id="location" type="text" name="location" value="Vancouver, Canada">
+                <input class="location" id="location" type="text" name="location" value="Vancouver, Canada">
                 <br>
-                <label for="location" style=>Yelp Term</label>
-                <input id="yterm" type="text" name="yterm" value="Indian">
+                <input class="yterm" id="yterm" type="text" name="yterm" value="Indian">
                 <br>
-                <input id="submit" type="submit" value="Submit" style=>
+                <input class="submit" id="submit" type="submit" value="Yelp" style=>
             </form>
         </div>
         <div class="map" id="map"></div>

@@ -35,9 +35,8 @@ function initMap() {
         pixelOffset: new google.maps.Size(-140, 0),
         zIndex: null,
         boxStyle: {
-            opacity: 0.75,
             width: "100%",
-            maxWidth: "425px",
+            maxWidth: "350px",
             padding: "6px"
         },
         closeBoxMargin: "8px 2px 2px 2px",
@@ -80,9 +79,10 @@ function drawMarkers() {
                 map.setCenter(thePlace.marker.getPosition());
                 var boxText = document.createElement("div");
                 boxText.id = 'ib-container';
+                boxText.className += 'ib-container';
                 boxText.innerHTML =
-                    '<div class="header"><h1>' + thePlace.name() + '</h1>' + '<h2>' + thePlace.display_phone() + '</h2><h3 class="sub-title">' + thePlace.location() + '</h3>' + '</div>' +
-                    '<div class="ib-content">' + '<h3><a href="' + thePlace.mobile_url() + '">Yelp Rating: ' + thePlace.rating() +
+                    '<div class="header"><h1 class="name">' + thePlace.name() + '</h1>' + '<h2 class="location">' + thePlace.location() + '</h2></div>' +
+                    '<div class="ib-content">' + '<h3><a href="' + thePlace.mobile_url() + '">User Rating: ' + thePlace.rating() +
                     '</a></h3>' + '<p>' + thePlace.snippet_text() + '</p><img src="' + thePlace.imageURL() + '"/></div>';
                 infoBox.setContent(boxText);
                 infoBox.open(map, this);
@@ -95,7 +95,7 @@ function drawMarkers() {
 var Place = function(data) {
     var self = this;
     this.name = ko.observable(data.name);
-    this.location = ko.observable(data.location.display_address);
+    this.location = ko.observable(data.location.display_address[0] + " " + data.location.display_address[1] + " " + data.location.city + ", "+ data.location.state_code);
     this.latitude = ko.observable(data.location.coordinate.latitude);
     this.longitude = ko.observable(data.location.coordinate.longitude);
     this.imageURL = ko.observable(data.image_url);

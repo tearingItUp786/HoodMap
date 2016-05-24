@@ -167,6 +167,7 @@ $options  = getopt("", $longopts);
 $term     = $options['term'] ?: $_POST['term'] ?: '';
 $location = $options['location'] ?: $_POST['location'] ?: '';
 
+// echo query_api($term, $location);
 $myFile = "onLoadData.txt";
 
 if (!file_exists($myFile)) {

@@ -1,4 +1,4 @@
-#ib-container {
+.ib-container {
     display: flex;
     flex-wrap: wrap;
     margin-top: 8px;
@@ -7,43 +7,43 @@
     box-shadow: 5px 5px 5px #DEDEDE;
     border: 1px solid #757575;
 }
-#ib-container .header {
+.ib-container .header {
     width: 100%;
     text-align: center;
     margin: 0;
     padding: 0;
 }
-#ib-container .header h1 {
+.ib-container .header h1 {
     width: 100%;
     margin-bottom: 4px;
 }
-#ib-container .header .sub-title {
+.ib-container .header .sub-title {
     width: 100%;
     font-size: 12px;
     margin-top: 0;
     border-bottom: solid;
     border-width: 2px;
 }
-#ib-container .header h2 {
+.ib-container .header h2 {
     margin: 0;
     padding: 0;
 }
-#ib-container .ib-content {
+.ib-container .ib-content {
     margin-top: 4px;
     display: flex;
     flex-wrap: wrap;
 }
-#ib-container .ib-content h3 {
+.ib-container .ib-content h3 {
     margin: 0;
     width: 100%;
 }
-#ib-container .ib-content p {
+.ib-container .ib-content p {
     font-size: 14px;
     padding: 0;
     width: 55%;
     margin-right: 5%;
 }
-#ib-container .ib-content img {
+.ib-container .ib-content img {
     height: 50%;
     width: 40%;
     min-height: 40px;
