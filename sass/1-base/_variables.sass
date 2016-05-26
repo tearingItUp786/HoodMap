@@ -5,3 +5,19 @@ $navText: #a0a0a0
 $infoText: #cccccc
 $borderColor: #212121
 $font-stack: 'Raleway', sans-serif
+
+@mixin bp-large
+  @media only screen and (max-width: 60em)
+    @content
+
+
+
+@mixin bp-medium
+  @media only screen and (max-width: 50em)
+    @content
+
+
+
+@mixin bp-small
+  @media only screen and (max-width: 30em)
+    @content

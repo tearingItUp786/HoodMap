@@ -1,3 +1,20 @@
+$(function() {
+    $('.mobile-nav-toggle').click(function() {
+        $('.navigation').removeClass('close');
+        $('.navigation').toggleClass('open');
+        $('.map').toggleClass('open');
+    });
+
+    $('.closer').click(function(e) {
+        e.preventDefault();
+        if ($('.navigation').hasClass('open')) {
+            $('.navigation').toggleClass('open');
+            $('.navigation').toggleClass('close');
+            $('.map').toggleClass('open');
+        }
+    });
+});
+
 var hoodCoordinates = {
     lat: 49.246292,
     lng: -123.116226
@@ -136,9 +153,24 @@ function drawMarkers() {
                     '</a></h3>' + '<p>' + thePlace.snippet_text() + '</p><img src="' + thePlace.imageURL() + '"/></div>';
                 infoBox.setContent(boxText);
                 infoBox.open(map, this);
-                myListView.scroll();
+
+                scrollList();
             };
         })(i));
+    }
+}
+
+function scrollList() {
+    var container = $('#locations'),
+        scrollTo = $('.active');
+    $('#locations').stop().animate({
+        scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+    }, 500)
+
+    if ($('.navigation').hasClass('open')) {
+        $('.navigation').toggleClass('open');
+        $('.navigation').toggleClass('close');
+        $('.map').toggleClass('open');
     }
 }
 
@@ -196,12 +228,8 @@ var ListviewModel = function() {
     };
 
     self.scroll = function() {
-        var container = $('#locations'),
-            scrollTo = $('.active');
-
-        $('#locations').stop().animate({
-            scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
-        }, 500)
+        scrollList();
+        console.log("Scroll called");
     };
 };
 

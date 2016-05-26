@@ -1,3 +1,8 @@
 .map
   +size(100% 100%)
   +position(absolute, 0 0 0 0)
+  +transition(opacity .5s ease)
+
+@include bp-medium
+  .open
+    opacity: 0.3

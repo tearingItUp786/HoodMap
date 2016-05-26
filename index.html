@@ -13,16 +13,18 @@
 
 <body>
     <div class="wrapper">
-        <nav class="navigation">
+        <nav id='navigation' class="navigation">
             <div class="logo-wrapper">
-              <h1 class="logo"> &#12296; ? tsb ? 	&#12297; </h1>
-              <h2 class="project-name">MAP APPLICATION</h2>
+                <h1 class="logo"> &#12296; ? tsb ? 	&#12297; </h1>
+                <h2 class="project-name">MAP APPLICATION</h2>
             </div>
             <ul id="locations" data-bind="foreach: placeList">
                 <li data-bind="html: fullName, css: $root.styling($data),click: function(){ $root.displayInfo($data); $root.toggle($data); $root.scroll();}">
                 </li>
             </ul>
+            <div class="mobile-menu-close"><a href="#" class="closer"></a></div>
         </nav>
+        <div class="mobile-nav-toggle"><span></span></div>
         <div class="search">
             <form onsubmit="event.preventDefault(); parseForm();">
                 <input class="location" id="location" type="text" name="location" value="Vancouver, Canada">

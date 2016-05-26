@@ -3,6 +3,7 @@
   z-index: 3
   margin: 0 5% 0 0
   width: 250px
+  top: 5px
 
   .location
     +size(calc(100% - 20px) null)
@@ -39,3 +40,6 @@
 
     &:hover
       cursor: pointer
+
+  @include bp-small
+    width: 40%
