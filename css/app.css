@@ -544,6 +544,7 @@ html, body {
     -o-transform: translateX(-250px);
     transform: translateX(-250px); }
     .navigation.open {
+      transform: scale(1);
       -webkit-transform: translateX(0px);
       -moz-transform: translateX(0px);
       -ms-transform: translateX(0px);
