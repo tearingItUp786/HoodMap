@@ -14,11 +14,7 @@ Following is the list of APIs and resources I used, in no particular order:
 
 **Note my solution does not include the server side changes I had to make (changes to htaccess files etc.)**
 
-<<<<<<< HEAD
-**Version 2.0: Branch New Design**  
-=======
 **Version 2.0**  
->>>>>>> release-2.0
 [Check it out!](http://taran.bus.sfu.ca/HoodV2/)
 
 **Version 1.5**  
