@@ -5,6 +5,7 @@
     <title>Place searches</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
+    <meta name="description" content="A Map Application by Taranveer Bains that interfaces with Yelp and Google Maps">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/app.min.css" />
@@ -22,7 +23,9 @@
                 <li data-bind="html: fullName, css: $root.styling($data),click: function(){ $root.displayInfo($data); $root.toggle($data); $root.scroll();}">
                 </li>
             </ul>
-            <div class="mobile-menu-close"><a href="#" class="closer"></a></div>
+            <div class="mobile-menu-close">
+                <a href="#" class="closer"></a>
+            </div>
         </nav>
         <div class="mobile-nav-toggle"><span></span></div>
         <div class="search">
@@ -31,7 +34,7 @@
                 <br>
                 <input class="yterm" id="yterm" type="text" name="yterm" value="Indian">
                 <br>
-                <input class="submit" id="submit" type="submit" value="Yelp" style=>
+                <input class="submit" id="submit" type="submit" value="Search" style=>
             </form>
         </div>
         <div class="map" id="map"></div>
