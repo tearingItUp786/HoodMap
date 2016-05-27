@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Yelp API v2.0 code sample.
  *
@@ -24,10 +23,10 @@ require_once('lib/OAuth.php');
 // Set your OAuth credentials here
 // These credentials can be obtained from the 'Manage API Access' page in the
 // developers documentation (http://www.yelp.com/developers)
-$CONSUMER_KEY    = '';
-$CONSUMER_SECRET = '';
-$TOKEN           = '';
-$TOKEN_SECRET    = '';
+$CONSUMER_KEY    = 'etEGHhav9psQyyA29O6DJA';
+$CONSUMER_SECRET = 'RhcStxf8mTeS-5aSdYvKamWxbB4';
+$TOKEN           = 'yo5phN4iuPUV4tI8fzAcjTK3Wej1skzZ';
+$TOKEN_SECRET    = 'jTRCy3CkKqVW5C2jfiYwLoRtB7w';
 
 $API_HOST         = 'api.yelp.com';
 $DEFAULT_TERM     = "indian";
@@ -168,25 +167,26 @@ $options  = getopt("", $longopts);
 $term     = $options['term'] ?: $_POST['term'] ?: '';
 $location = $options['location'] ?: $_POST['location'] ?: '';
 
-$myFile = "onLoadData.txt";
-
-if (!file_exists($myFile)) {
-    $fh   = fopen($myFile, 'w');
-    $data = query_api($term, $location);
-    fwrite($fh, $data);
-    fclose($fh);
-}
-
-$compareDate = strtotime('1 week ago');
-$modDate     = filemtime($myFile);
-
-if ($modDate <= $compareDate) {
-    $fh   = fopen($myFile, 'w');
-    $data = query_api($term, $location);
-    fwrite($fh, $data);
-    fclose($fh);
-    echo $data;
-} else {
-    echo file_get_contents($myFile);
-}
+echo query_api($term, $location);
+// $myFile = "onLoadData.txt";
+//
+// if (!file_exists($myFile)) {
+//     $fh   = fopen($myFile, 'w');
+//     $data = query_api($term, $location);
+//     fwrite($fh, $data);
+//     fclose($fh);
+// }
+//
+// $compareDate = strtotime('1 week ago');
+// $modDate     = filemtime($myFile);
+//
+// if ($modDate <= $compareDate) {
+//     $fh   = fopen($myFile, 'w');
+//     $data = query_api($term, $location);
+//     fwrite($fh, $data);
+//     fclose($fh);
+//     echo $data;
+// } else {
+//     echo file_get_contents($myFile);
+// }
 ?>

@@ -2,50 +2,46 @@
 <html>
 
 <head>
-  <title>Place searches</title>
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-  <meta charset="utf-8">
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/main.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <title>Place searches</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <meta name="description" content="A Map Application by Taranveer Bains that interfaces with Yelp and Google Maps">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/app.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 </head>
 
 <body>
-  <nav class="navigation open">
-    <i class="fa fa-bars"></i>
-    <form onsubmit="event.preventDefault(); parseForm();">
-      <label for="location">Location</label>
-      <input id="location" type="text" name="location" value="Vancouver, Canada">
-      <br>
-      <label for="location" style=>Yelp Term</label>
-      <input id="yterm" type="text" name="yterm" value="Indian">
-      <br>
-      <input id="submit" type="submit" value="Submit" style=>
-    </form>
-    <ul id="locations" data-bind="foreach: placeList">
-      <li class="nav-item" data-bind="html: fullName, css: $root.styling($data),click: function(){ $root.displayInfo($data); $root.toggle($data); $root.scroll();}">
-      </li>
-    </ul>
-  </nav>
-  <div id="map"></div>
+    <div class="wrapper">
+        <nav id='navigation' class="navigation">
+            <div class="logo-wrapper">
+                <h1 class="logo"> &#12296; ? tsb ? 	&#12297; </h1>
+                <h2 class="project-name">MAP APPLICATION</h2>
+            </div>
+            <ul id="locations" data-bind="foreach: placeList">
+                <li data-bind="html: fullName, css: $root.styling($data),click: function(){ $root.displayInfo($data); $root.toggle($data); $root.scroll();}">
+                </li>
+            </ul>
+            <div class="mobile-menu-close">
+                <a href="#" class="closer"></a>
+            </div>
+        </nav>
+        <div class="mobile-nav-toggle"><span></span></div>
+        <div class="search">
+            <form onsubmit="event.preventDefault(); parseForm();">
+                <input class="location" id="location" type="text" name="location" value="Vancouver, Canada">
+                <br>
+                <input class="yterm" id="yterm" type="text" name="yterm" value="Indian">
+                <br>
+                <input class="submit" id="submit" type="submit" value="Search" style=>
+            </form>
+        </div>
+        <div class="map" id="map"></div>
+    </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-  <script src="js/app.min.js"></script>
-  <script>
-    $('.fa').on('click', function(e) {
-      if ($('.navigation').hasClass('close')) {
-        $('.navigation').attr('id', '');
-        $('.navigation').toggleClass('open');
-        $('.navigation').toggleClass('close');
-      } else {
-        $('.navigation').toggleClass('open');
-        $('.navigation').toggleClass('close');
-        $('.navigation').attr('id', 'tiny');
-      }
-
-    });
-  </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script src="js/app.min.js"></script>
 </body>
 
 </html>
