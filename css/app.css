@@ -483,8 +483,6 @@ html, body {
       width: 100%;
       font-weight: 400;
       height: auto; }
-      .navigation .logo-wrapper .logo-items:hover, .navigation .logo-wrapper .logo:hover, .navigation .logo-wrapper .project-name:hover {
-        background-color: black; }
     .navigation .logo-wrapper .logo {
       overflow: hidden;
       text-indent: 101%;
@@ -511,13 +509,15 @@ html, body {
       color: #a0a0a0;
       font-size: 1em;
       font-weight: 500;
-      padding: 30px 20px 30px 20px;
+      padding: 40px 20px 30px 20px;
       border-top-color: #212121;
       border-bottom-color: #212121;
       border-width: 1px 0;
       border-top-style: solid;
       border-bottom-style: solid;
       cursor: pointer; }
+      .navigation ul li .star {
+        width: 80px; }
       @media only screen and (max-width: 30em) {
         .navigation ul li {
           padding: 20px 15px 20px 15px;
@@ -607,11 +607,12 @@ html, body {
     cursor: pointer;
     padding: 20px;
     box-sizing: border-box; }
-    .mobile-menu-close.closer {
+    .mobile-menu-close .closer {
       right: -10px;
       position: absolute;
       top: -5px;
-      z-index: 5000; } }
+      z-index: 5000;
+      padding: 30px; } }
 
 @media only screen and (max-width: 30em) {
   .navigation {
@@ -676,7 +677,7 @@ html, body {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 10px 20px 10px 20px;
-  margin: 8px 0 0 0;
+  margin: 0px 0 0 0;
   background: #0d0d0d;
   font-family: "Raleway", sans-serif;
   border: #f5ae00 1px solid;

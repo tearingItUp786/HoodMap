@@ -167,26 +167,26 @@ $options  = getopt("", $longopts);
 $term     = $options['term'] ?: $_POST['term'] ?: '';
 $location = $options['location'] ?: $_POST['location'] ?: '';
 
-// echo query_api($term, $location);
-$myFile = "onLoadData.txt";
-
-if (!file_exists($myFile)) {
-    $fh   = fopen($myFile, 'w');
-    $data = query_api($term, $location);
-    fwrite($fh, $data);
-    fclose($fh);
-}
-
-$compareDate = strtotime('1 week ago');
-$modDate     = filemtime($myFile);
-
-if ($modDate <= $compareDate) {
-    $fh   = fopen($myFile, 'w');
-    $data = query_api($term, $location);
-    fwrite($fh, $data);
-    fclose($fh);
-    echo $data;
-} else {
-    echo file_get_contents($myFile);
-}
+echo query_api($term, $location);
+// $myFile = "onLoadData.txt";
+//
+// if (!file_exists($myFile)) {
+//     $fh   = fopen($myFile, 'w');
+//     $data = query_api($term, $location);
+//     fwrite($fh, $data);
+//     fclose($fh);
+// }
+//
+// $compareDate = strtotime('1 week ago');
+// $modDate     = filemtime($myFile);
+//
+// if ($modDate <= $compareDate) {
+//     $fh   = fopen($myFile, 'w');
+//     $data = query_api($term, $location);
+//     fwrite($fh, $data);
+//     fclose($fh);
+//     echo $data;
+// } else {
+//     echo file_get_contents($myFile);
+// }
 ?>

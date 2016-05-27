@@ -27,9 +27,6 @@
       +size(100% 50px)
       font-weight: 400
       height: auto
-      &:hover
-        background:
-          color: black
 
     .logo
       @extend .logo-items
@@ -59,11 +56,14 @@
       color: $navText
       font-size: +em(16)
       font-weight: 500
-      padding: 30px 20px 30px 20px
+      padding: 40px 20px 30px 20px
       +border-color($borderColor null $borderColor)
       +border-width(1px 0 1px 0)
       +border-style(solid null solid null)
       cursor: pointer
+
+      .star
+        +size(80px null)
 
       @include bp-small
         padding: 20px 15px 20px 15px
@@ -145,11 +145,12 @@
     padding: 20px
     box-sizing: border-box
 
-    &.closer
+    .closer
       right: -10px
       position: absolute
       top: -5px
       z-index: 5000
+      padding: 30px
 
 @include bp-small
   .navigation

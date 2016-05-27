@@ -104,10 +104,10 @@ function initMap() {
         boxStyle: {
             width: "100%",
             maxWidth: "360px",
-            padding: "6px"
+            padding: "0px"
         },
-        closeBoxMargin: "8px 2px 2px 2px",
-        closeBoxURL: "../images/square.png",
+        closeBoxMargin: "0px 5px 5px 5px",
+        closeBoxURL: "../images/close-box.jpg",
         infoBoxClearance: new google.maps.Size(1, 1),
         isHidden: false,
         pane: "floatPane",
@@ -123,6 +123,11 @@ function initMap() {
 }
 
 function drawMarkers() {
+    var image = {
+        url: '../images/my-location-pin.svg',
+        // This marker is 20 pixels wide by 32 pixels high.
+        size: new google.maps.Size(30, 40),
+    }
     for (var i = 0; i < myListView.placeList().length; i++) {
         var thePlace = myListView.placeList()[i];
 
@@ -132,7 +137,7 @@ function drawMarkers() {
                 lat: thePlace.latitude(),
                 lng: thePlace.longitude()
             },
-            // icon: "../images/location.png"
+            icon: image
         });
 
         thePlace.marker = marker;
@@ -174,6 +179,44 @@ function scrollList() {
     }
 }
 
+function starSource(rating) {
+    var source = "../images/stars/";
+    switch (rating) {
+        case 1:
+            source += "1star.png";
+            break;
+        case 1.5:
+            source += "1.5star.png";
+            break;
+        case 2:
+            source += "2star.png";
+            break;
+        case 2.5:
+            source += "2.5star.png";
+            break;
+        case 3:
+            source += "3star.png";
+            break;
+        case 3.5:
+            source += "3.5star.png";
+            break;
+        case 4:
+            source += "4star.png";
+            break;
+
+        case 4.5:
+            source += "4.5star.png";
+            break;
+        case 5:
+            source += "5star.png";
+            break;
+
+        default:
+          source = "5star.png";
+    }
+    return source;
+}
+
 var Place = function(data) {
     var self = this;
     this.name = ko.observable(data.name);
@@ -188,7 +231,7 @@ var Place = function(data) {
     this.active = ko.observable(false);
     this.rating_img_url_large = ko.observable(data.rating_img_url_large);
     this.fullName = ko.computed(function() {
-        return this.name();
+        return this.name() + '<br/><img class="star" src="' + starSource(this.rating()) + '" alt="star rating"/>';
     }, this);
 
 };
