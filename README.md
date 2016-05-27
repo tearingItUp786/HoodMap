@@ -18,7 +18,6 @@ Following is the list of APIs and resources I used, in no particular order:
 [Check it out!](http://taran.bus.sfu.ca/HoodV2/)
 
 **Version 1.5**  
-<<<<<<< HEAD
 [V1](http://taran.bus.sfu.ca/NeighborHoodMap/)
 
 Icons made by [Freepik](http://www.freepik.com "Freepik") from [www.flaticon.com](http://www.flaticon.com "Flaticon") is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/ "Creative Commons BY 3.0")
