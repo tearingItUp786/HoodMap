@@ -27,11 +27,14 @@
                 <a href="#" class="closer"></a>
             </div>
         </nav>
-        <div class="mobile-nav-toggle"><span></span></div>
+        <div class="mobile-nav-toggle"><span></span><a href="#" class="nav-closer"></a></div>
         <div class="search">
             <form onsubmit="event.preventDefault(); parseForm();">
+                <label for="location">Location</label>
                 <input class="location" id="location" type="text" name="location" value="Vancouver, Canada">
-                <br>
+                <br />
+                <br />
+                <label for="yterm">Search Term</label>
                 <input class="yterm" id="yterm" type="text" name="yterm" value="Indian">
                 <br>
                 <input class="submit" id="submit" type="submit" value="Search" style=>

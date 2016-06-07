@@ -1,5 +1,5 @@
 $(function() {
-    $('.mobile-nav-toggle').click(function() {
+    $('.nav-closer').click(function() {
         $('.navigation').removeClass('close');
         $('.navigation').toggleClass('open');
         $('.map').toggleClass('open');
@@ -153,7 +153,7 @@ function drawMarkers() {
                 boxText.id = 'ib-container';
                 boxText.className += 'ib-container';
                 boxText.innerHTML =
-                    '<div class="header"><h1 class="name">' + thePlace.name() + '</h1>' + '<h2 class="location">' + thePlace.location() + '</h2></div>' +
+                    '<div class="header"><h1 class="name"><a href="'+ thePlace.mobile_url() +'">' + thePlace.name() + '</a></h1>' + '<h2 class="location">' + thePlace.location() + '</h2></div>' +
                     '<div class="ib-content">' + '<h3><a href="' + thePlace.mobile_url() + '">User Rating: ' + thePlace.rating() +
                     '</a></h3>' + '<p>' + thePlace.snippet_text() + '</p><img src="' + thePlace.imageURL() + '"/></div>';
                 infoBox.setContent(boxText);
@@ -212,7 +212,7 @@ function starSource(rating) {
             break;
 
         default:
-          source = "5star.png";
+            source = "5star.png";
     }
     return source;
 }
@@ -292,7 +292,7 @@ function retrieveYelpData(uterm, ulocation, script, aFunc) {
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);
-            alert("Ajax called failed. Markers will not be made");
+            alert("Ajax called failed. Markers will not be made. \nDid you enter a valid location/search term?");
         }
     });
 }
@@ -307,7 +307,7 @@ function codeAddress(callback) {
             map.setCenter(results[0].geometry.location);
             callback();
         } else {
-            alert("Geocode was not successful for the following reason: " + status);
+            alert("Geocode was not successful for the following reason: " + status + ". Are you sure you entered a valid address?");
         }
     });
 }
@@ -329,19 +329,20 @@ function parseForm() {
 
     var loc = document.getElementById('location').value;
     var term = document.getElementById('yterm').value;
-    console.log(term);
-    console.log(loc);
-    retrieveYelpData(term, loc, "../php/sample.php", function(data) {
+    if (term === "" || loc === "") {
+        alert("Please enter in a valid location/search term");
+    } else{
+        retrieveYelpData(term, loc, "../php/sample.php", function(data) {
 
-        clearMarkers();
-        myListView.placeList.removeAll();
-        data.forEach(function(place) {
-            var aPlace = new Place(place);
-            myListView.placeList.push(aPlace);
+            clearMarkers();
+            myListView.placeList.removeAll();
+            data.forEach(function(place) {
+                var aPlace = new Place(place);
+                myListView.placeList.push(aPlace);
+            });
+            codeAddress(drawMarkers);
         });
-        codeAddress(drawMarkers);
-    });
-
+    }
 }
 myListView = new ListviewModel();
 ko.applyBindings(myListView);
