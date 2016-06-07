@@ -154,7 +154,7 @@ function drawMarkers() {
                 boxText.className += 'ib-container';
                 boxText.innerHTML =
                     '<div class="header"><h1 class="name"><a href="'+ thePlace.mobile_url() +'">' + thePlace.name() + '</a></h1>' + '<h2 class="location">' + thePlace.location() + '</h2></div>' +
-                    '<div class="ib-content">' + '<h3><a href="' + thePlace.mobile_url() + '">User Rating: ' + thePlace.rating() +
+                    '<div class="ib-content">' + '<h3>' + 'User Rating: ' + thePlace.rating() +
                     '</a></h3>' + '<p>' + thePlace.snippet_text() + '</p><img src="' + thePlace.imageURL() + '"/></div>';
                 infoBox.setContent(boxText);
                 infoBox.open(map, this);

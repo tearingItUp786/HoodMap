@@ -26,6 +26,8 @@
         text-decoration: none
         cursor: pointer
 
+        &:hover
+          color: lighten($infoText, 20%)
     .location
       margin: 0
       font-size: +em(17)
@@ -41,11 +43,8 @@
     h3
       width: 100%
       margin: 0 0 10px 0
-
-      a
-        text-decoration: none
-        color: $yellow
-        font-weight: 400
+      color: $yellow
+      font-weight: 400
 
     p
       width: 55%
