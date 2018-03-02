@@ -102,7 +102,7 @@ function initMap() {
         pixelOffset: new google.maps.Size(-140, 0),
         zIndex: null,
         boxStyle: {
-            width: "100%",
+            width: "360px",
             maxWidth: "360px",
             padding: "0px"
         },
